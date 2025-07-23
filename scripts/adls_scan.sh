@@ -10,7 +10,7 @@ az version
 # Variables
 PURVIEW_NAME="banupurview"
 SCAN_NAME="automated_adls_scan1"
-COLLECTION_NAME="default"
+COLLECTION_NAME="banupurview"
 RESOURCE_GROUP="purviewproject"
 SUBSCRIPTION_ID="e34ac57d-3802-4c72-9bf9-67b23f939b24"
 STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
