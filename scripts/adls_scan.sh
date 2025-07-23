@@ -22,7 +22,7 @@ ARM_RESOURCE_ID="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GRO
 echo "📌 Registering ADLS as a data source in Purview..."
 
 az rest --method put \
-  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}?api-version=2022-09-01-preview" \
+  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${ARM_RESOURCE_ID}?api-version=2022-09-01-preview" \
   --headers "Content-Type=application/json" \
   --resource "https://purview.azure.net" \
   --body @- <<EOF
