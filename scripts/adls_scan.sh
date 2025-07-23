@@ -12,14 +12,17 @@ az version
 PURVIEW_NAME="banupurview"
 SCAN_NAME="automated_adls_scan1"
 COLLECTION_NAME="banupurview"
-RESOURCE_GROUP="personal"
+PURVIEW_RESOURCE_GROUP="personal"
 SUBSCRIPTION_ID="e34ac57d-3802-4c72-9bf9-67b23f939b24"
+
 STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
+STORAGE_RESOURCE_GROUP="purviewproject"
+
 CREDENTIAL_NAME="ADLS_Raw"
 SCAN_RULE_SET_NAME="System-DefaultAzureStorage"
 
-ARM_RESOURCE_ID="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}"
-RESOURCE_PATH="${ARM_RESOURCE_ID:1}"  # remove leading slash for REST URI
+ARM_RESOURCE_ID="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${STORAGE_RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}"
+RESOURCE_PATH="${ARM_RESOURCE_ID:1}"  # Remove leading slash for REST URI
 
 # ========= Register Data Source =========
 echo "📌 Registering ADLS as a data source in Purview..."
@@ -50,7 +53,7 @@ echo "✅ Data source registered."
 echo "🛠️ Creating scan configuration..."
 
 az rest --method put \
-  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${RESOURCE_PATH}?api-version=2023-10-01-preview" \
+  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}/scans/${SCAN_NAME}?api-version=2023-10-01-preview" \
   --headers "Content-Type=application/json" \
   --resource "https://purview.azure.net" \
   --body @- <<EOF
@@ -84,7 +87,7 @@ echo "✅ Scan configuration created."
 echo "🚀 Triggering the scan..."
 
 az rest --method post \
-  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${RESOURCE_PATH}?api-version=2023-10-01-preview" \
+  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}/scans/${SCAN_NAME}/run?api-version=2023-10-01-preview" \
   --resource "https://purview.azure.net"
 
 echo "🎉 ADLS scan triggered successfully!"
