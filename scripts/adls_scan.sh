@@ -33,6 +33,10 @@ az rest --method put \
       \"resourceReference\": {
         \"type\": \"ArmResourceReference\",
         \"referenceName\": \"${RESOURCE_NAME}\"
+      },
+      \"collection\": {
+        \"type\": \"CollectionReference\",
+        \"referenceName\": \"default\"
       }
     }
   }"
