@@ -1,25 +1,27 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 set -x
 
 echo "🔁 Starting ADLS Scan Script..."
 
+# Show Azure CLI version
 az version
 
-# Variables
+# ========= Configuration =========
 PURVIEW_NAME="banupurview"
 SCAN_NAME="automated_adls_scan1"
 COLLECTION_NAME="banupurview"
-RESOURCE_GROUP="purviewproject"
+RESOURCE_GROUP="personal"
 SUBSCRIPTION_ID="e34ac57d-3802-4c72-9bf9-67b23f939b24"
 STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
 CREDENTIAL_NAME="ADLS_Raw"
 SCAN_RULE_SET_NAME="System-DefaultAzureStorage"
 
 ARM_RESOURCE_ID="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}"
-RESOURCE_PATH="${ARM_RESOURCE_ID:1}"  # remove leading slash for URI
+RESOURCE_PATH="${ARM_RESOURCE_ID:1}"  # remove leading slash for REST URI
 
+# ========= Register Data Source =========
 echo "📌 Registering ADLS as a data source in Purview..."
 
 az rest --method put \
@@ -44,6 +46,7 @@ EOF
 
 echo "✅ Data source registered."
 
+# ========= Create Scan =========
 echo "🛠️ Creating scan configuration..."
 
 az rest --method put \
@@ -77,6 +80,7 @@ EOF
 
 echo "✅ Scan configuration created."
 
+# ========= Trigger Scan =========
 echo "🚀 Triggering the scan..."
 
 az rest --method post \
