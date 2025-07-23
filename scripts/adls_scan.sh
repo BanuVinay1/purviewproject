@@ -11,18 +11,22 @@ az version
 # ================== Variables ==================
 PURVIEW_NAME="banupurview"
 SCAN_NAME="automated_adls_scan1"
-COLLECTION_NAME="banupurview" # If unsure, use 'default'
+COLLECTION_NAME="banupurview"  # Use "default" if needed
 RESOURCE_GROUP="purviewproject"
 SUBSCRIPTION_ID="e34ac57d-3802-4c72-9bf9-67b23f939b24"
 STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
 CREDENTIAL_NAME="ADLS_Raw"
 SCAN_RULE_SET_NAME="System-DefaultAzureStorage"
+
+# Full ARM path
 ARM_RESOURCE_ID="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}"
+# 👇 Remove leading slash to avoid double slashes in URI
+RESOURCE_PATH="${ARM_RESOURCE_ID#/}"
 
 echo "📌 Registering ADLS as a data source in Purview..."
 
 az rest --method put \
-  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${ARM_RESOURCE_ID}?api-version=2022-09-01-preview" \
+  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${RESOURCE_PATH}?api-version=2022-09-01-preview" \
   --headers "Content-Type=application/json" \
   --resource "https://purview.azure.net" \
   --body @- <<EOF
