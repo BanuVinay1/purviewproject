@@ -28,7 +28,7 @@ RESOURCE_PATH="${ARM_RESOURCE_ID:1}"  # Remove leading slash for REST URI
 echo "📌 Registering ADLS as a data source in Purview..."
 
 az rest --method put \
-  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${RESOURCE_PATH}?api-version=2023-10-01-preview" \
+  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}?api-version=2023-10-01-preview" \
   --headers "Content-Type=application/json" \
   --resource "https://purview.azure.net" \
   --body @- <<EOF
@@ -53,7 +53,7 @@ echo "✅ Data source registered."
 echo "🛠️ Creating scan configuration..."
 
 az rest --method put \
-  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}/scans/${SCAN_NAME}?api-version=2023-10-01-preview" \
+  --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}?api-version=2023-10-01-preview" \
   --headers "Content-Type=application/json" \
   --resource "https://purview.azure.net" \
   --body @- <<EOF
