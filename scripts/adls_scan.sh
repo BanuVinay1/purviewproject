@@ -18,7 +18,7 @@ STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
 STORAGE_RESOURCE_GROUP="purviewproject"
 
 SCAN_RULE_SET_NAME="System-DefaultAzureStorage"
-CREDENTIAL_NAME="SystemAssignedManagedIdentity"  # Replace if needed after listing credentials
+CREDENTIAL_NAME="gha"  # Replace if needed after listing credentials
 
 # ========= Create Scan =========
 echo "🛠️ Creating scan configuration..."
