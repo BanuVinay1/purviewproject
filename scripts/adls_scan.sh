@@ -7,8 +7,7 @@ echo "🔁 Starting ADLS Scan Script..."
 
 # Show Azure CLI version
 az version
-az account show
-az ad signed-in-user show
+az ad sp show --id 3e4dab9e-59d6-47ed-91c9-6398ac3fb52f
 
 
 # ========= Configuration =========
