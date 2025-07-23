@@ -1,0 +1,25 @@
+name: Trigger Purview ADLS Scan
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Run ADLS Scan Script
+        run: |
+          chmod +x scripts/adls_scan.sh
+          ./scripts/adls_scan.sh
