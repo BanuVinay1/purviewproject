@@ -7,6 +7,9 @@ echo "🔁 Starting ADLS Scan Script..."
 
 # Show Azure CLI version
 az version
+az account show
+az ad signed-in-user show
+
 
 # ========= Configuration =========
 PURVIEW_NAME="banupurview"
