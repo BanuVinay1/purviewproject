@@ -4,7 +4,7 @@ set -e
 set -x
 
 echo "Starting ADLS Scan Script..."
-echo "Azure CLI version:"
+
 az version
 
 # Variables
@@ -14,14 +14,14 @@ COLLECTION_NAME="default"
 RESOURCE_GROUP="purviewproject"
 SUBSCRIPTION_ID="e34ac57d-3802-4c72-9bf9-67b23f939b24"
 STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
-RESOURCE_NAME="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}"
 CREDENTIAL_NAME="ADLS_Raw"
 SCAN_RULE_SET_NAME="System-DefaultAzureStorage"
 
-echo "Target Purview Account: $PURVIEW_NAME"
-echo "Registering the ADLS account as a data source..."
+# Compute the full ARM path
+ARM_RESOURCE_ID="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}"
 
-# STEP 1 - Register the ADLS account as a data source
+echo "Registering ADLS as a data source in Purview..."
+
 az rest --method put \
   --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}?api-version=2022-09-01-preview" \
   --headers "Content-Type=application/json" \
@@ -32,7 +32,7 @@ az rest --method put \
   "properties": {
     "resourceReference": {
       "type": "ArmResourceReference",
-      "referenceName": "${RESOURCE_NAME}"
+      "referenceName": "${ARM_RESOURCE_ID}"
     },
     "collection": {
       "type": "CollectionReference",
@@ -42,8 +42,7 @@ az rest --method put \
 }
 EOF
 
-# STEP 2 - Create the scan
-echo "Creating the scan..."
+echo "Creating scan configuration..."
 
 az rest --method put \
   --uri "https://${PURVIEW_NAME}.purview.azure.com/scanning/datasources/${STORAGE_ACCOUNT_NAME}/scans/${SCAN_NAME}?api-version=2022-09-01-preview" \
@@ -57,7 +56,6 @@ az rest --method put \
       "type": "CollectionReference",
       "referenceName": "${COLLECTION_NAME}"
     },
-    "connectedVia": null,
     "credential": {
       "referenceName": "${CREDENTIAL_NAME}",
       "type": "CredentialReference"
@@ -75,7 +73,6 @@ az rest --method put \
 }
 EOF
 
-# STEP 3 - Trigger the scan manually
 echo "Triggering the scan..."
 
 az rest --method post \
