@@ -1,6 +1,15 @@
 #!/bin/bash
 
 set -e
+set -x
+
+echo "Starting ADLS Scan Script..."
+
+echo "Azure CLI version:"
+az version
+
+echo "Target Purview Account: $PURVIEW_NAME"
+
 
 PURVIEW_NAME="banupurview"
 SCAN_NAME="automated_adls_scan1"
