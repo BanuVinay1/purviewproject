@@ -5,22 +5,20 @@ set -x
 
 echo "🔁 Starting ADLS Scan Script..."
 
-# Show Azure CLI version
+# Confirm Azure CLI setup
 az version
 
-# ========= Configuration =========
+# ========= CONFIGURATION =========
 PURVIEW_NAME="banupurview"
-SCAN_NAME="automated_adls_scan1"
-COLLECTION_NAME="banupurview"
 SUBSCRIPTION_ID="e34ac57d-3802-4c72-9bf9-67b23f939b24"
-
+RESOURCE_GROUP="purviewproject"
 STORAGE_ACCOUNT_NAME="pvadls1ixtg6uo5qrq4e"
-STORAGE_RESOURCE_GROUP="purviewproject"
-
+SCAN_NAME="automated_adls_scan1"
+CREDENTIAL_NAME="gha"
+COLLECTION_NAME="banupurview"
 SCAN_RULE_SET_NAME="System-DefaultAzureStorage"
-CREDENTIAL_NAME="gha"  # Replace if needed after listing credentials
 
-# ========= Create Scan =========
+# ========= CREATE SCAN CONFIGURATION =========
 echo "🛠️ Creating scan configuration..."
 
 az rest --method put \
@@ -45,7 +43,7 @@ az rest --method put \
       "schedule": {
         "interval": 7,
         "intervalUnit": "Day",
-        "startTime": "2025-07-25T00:00:00Z"
+        "startTime": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
       }
     }
   }
@@ -54,7 +52,7 @@ EOF
 
 echo "✅ Scan configuration created."
 
-# ========= Trigger Scan =========
+# ========= TRIGGER THE SCAN =========
 echo "🚀 Triggering the scan..."
 
 az rest --method post \

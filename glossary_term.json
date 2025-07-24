@@ -1,0 +1,11 @@
+{
+  "name": "Customer ID",
+  "shortDescription": { "string": "Unique identifier for customers" },
+  "longDescription": { "string": "This term refers to a system-generated unique identifier for each customer" },
+  "anchor": {
+    "guid": "<GLOSSARY_GUID>",
+    "typeName": "Glossary"
+  },
+  "language": "en",
+  "status": "Approved"
+}
