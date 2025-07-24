@@ -1,11 +1,6 @@
-{
-  "name": "Customer ID",
-  "shortDescription": { "string": "Unique identifier for customers" },
-  "longDescription": { "string": "This term refers to a system-generated unique identifier for each customer" },
-  "anchor": {
-    "guid": "<GLOSSARY_GUID>",
-    "typeName": "Glossary"
-  },
-  "language": "en",
-  "status": "Approved"
-}
+termName,shortDescription,longDescription
+Customer,Customer entity,Business customer who buys a product
+Revenue,Income generated,Total income from operations
+Invoice,Invoice object,A bill sent to a customer
+Customer_Customer Segment,Customer classification,Group of customers by behavior or revenue
+Customer_Customer Lifetime Value,CLTV,Estimated revenue a customer brings in
