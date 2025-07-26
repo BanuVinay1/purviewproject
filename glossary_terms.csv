@@ -1,6 +1,11 @@
 termName,shortDescription,longDescription
-Customer,Customer entity,Business customer who buys a product
-Revenue,Income generated,Total income from operations
-Invoice,Invoice object,A bill sent to a customer
-Customer_Customer Segment,Customer classification,Group of customers by behavior or revenue
-Customer_Customer Lifetime Value,CLTV,Estimated revenue a customer brings in
+Net Profit,Profit after tax,Net earnings after all expenses and taxes
+Gross Margin,Profit before operating expenses,Revenue minus cost of goods sold
+EBITDA,Earnings before interest, taxes, depreciation, and amortization,A measure of a company’s overall financial performance
+Cash Flow,Cash inflow and outflow,Tracks how much cash is generated or used during a time period
+Forecast Accuracy,Accuracy of predictions,Comparison of actuals vs. forecasted values in financial models
+Churn Rate,Customer attrition rate,Percentage of customers lost over a specific time frame
+Monthly Recurring Revenue,Subscription income,The predictable monthly revenue from subscriptions
+Cost of Goods Sold,Production cost,The direct costs attributable to the production of goods sold
+Break-even Point,Profit-neutral level,Sales level at which total revenues equal total costs
+Accounts Receivable,Outstanding invoices,Money owed by customers for goods/services delivered
