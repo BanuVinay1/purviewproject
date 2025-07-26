@@ -39,7 +39,8 @@ with open(CSV_FILE, newline='') as csvfile:
             "name": row["termName"],
             "shortDescription": row["shortDescription"],
             "longDescription": row["longDescription"],
-            "anchor": {"glossaryGuid": glossary_id}
+            "anchor": {"glossaryGuid": glossary_id},
+            "status":"Approved"
         }
         term_resp = requests.post(
             f"https://{PURVIEW_NAME}.purview.azure.com/catalog/api/atlas/v2/glossary/term",
